@@ -23,19 +23,23 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-      console.log(data);
+      // console.log(req.user);      
+      // console.log(req.body.variables);
+      // console.log(req.body.variables.book);
+      console.log( data );
     } catch {
       console.log('Invalid token');
-      return res.status(400).json({ message: 'invalid token!' });
     }
-
+    // console.log("request");
+    console.log(req.user._id);
+    
     // send to next endpoint
     return req;
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
     console.log("in server auth");
-    console.log(payload);
+    //console.log(payload);
 
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
