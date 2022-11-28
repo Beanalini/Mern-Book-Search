@@ -40,11 +40,11 @@ Mutation: {
   
         return { token, user };
       },
-    saveBook: async (parent, { input }, context) => {       
+    saveBook: async (parent, { inputBook }, context) => {       
     if (context.user) {        
         const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $addToSet: { savedBooks: input }},
+        { $addToSet: { savedBooks: inputBook }},
         { new: true, runValidators: true },
         );
 
