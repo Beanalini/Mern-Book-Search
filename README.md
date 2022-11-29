@@ -16,49 +16,56 @@
 
   This project takes a fully functioning Google Books search engine,  built using the MERN stack with a React front-end that uses a  RESTful API, and refactors  the RESTful API to be a GraphQL API built with Apollo server.  The following steps were taken to replace the RESTful API:
 
+    - Setting up an Apollo Server to use GraphQL queries and mutations to fetch and modify existing data to replace the RESTful API.
+    - Authentication middleware was modified to work with a GraphQL API.
+    - Apollo provider was created to enable requests to communicate with an Apollo server.
+    
+
      
          
   ### Functional Requirements
 
-  The functional requirements that React Portfolio has been designed to meet are defined by the user story and acceptance criteria listed below.  
+  The functional requirements that the Book Search Application was refactored to meet are defined by the user story and acceptance criteria listed below.  
 
   #### User Story
 
   ```md
-AS AN employer looking for candidates with experience building single-page applications
-I WANT to view a potential employee's deployed React portfolio of work samples
-SO THAT I can assess whether they're a good candidate for an open position
+AS AN avid reader
+I WANT to search for new books to read
+SO THAT I can keep a list of books to purchase
 ```
  
 
-#### Acceptance Criteria
-
 ```md
-GIVEN a single-page application portfolio for a web developer
-WHEN I load the portfolio
-THEN I am presented with a page containing a header, a section for content, and a footer
-WHEN I view the header
-THEN I am presented with the developer's name and navigation with titles corresponding to different sections of the portfolio
-WHEN I view the navigation titles
-THEN I am presented with the titles About Me, Portfolio, Contact, and Resume, and the title corresponding to the current section is highlighted
-WHEN I click on a navigation title
-THEN I am presented with the corresponding section below the navigation without the page reloading and that title is highlighted
-WHEN I load the portfolio the first time
-THEN the About Me title and section are selected by default
-WHEN I am presented with the About Me section
-THEN I see a recent photo or avatar of the developer and a short bio about them
-WHEN I am presented with the Portfolio section
-THEN I see titled images of six of the developer’s applications with links to both the deployed applications and the corresponding GitHub repositories
-WHEN I am presented with the Contact section
-THEN I see a contact form with fields for a name, an email address, and a message
-WHEN I move my cursor out of one of the form fields without entering text
-THEN I receive a notification that this field is required
-WHEN I enter text into the email address field
-THEN I receive a notification if I have entered an invalid email address
-WHEN I am presented with the Resume section
-THEN I see a link to a downloadable resume and a list of the developer’s proficiencies
-WHEN I view the footer
-THEN I am presented with text or icon links to the developer’s GitHub and LinkedIn profiles, and their profile on a third platform (Stack Overflow, Twitter)
+GIVEN a book search engine
+WHEN I load the search engine
+THEN I am presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button
+WHEN I click on the Search for Books menu option
+THEN I am presented with an input field to search for books and a submit button
+WHEN I am not logged in and enter a search term in the input field and click the submit button
+THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site
+WHEN I click on the Login/Signup menu option
+THEN a modal appears on the screen with a toggle between the option to log in or sign up
+WHEN the toggle is set to Signup
+THEN I am presented with three inputs for a username, an email address, and a password, and a signup button
+WHEN the toggle is set to Login
+THEN I am presented with two inputs for an email address and a password and login button
+WHEN I enter a valid email address and create a password and click on the signup button
+THEN my user account is created and I am logged in to the site
+WHEN I enter my account’s email address and password and click on the login button
+THEN I the modal closes and I am logged in to the site
+WHEN I am logged in to the site
+THEN the menu options change to Search for Books, an option to see my saved books, and Logout
+WHEN I am logged in and enter a search term in the input field and click the submit button
+THEN I am presented with several search results, each featuring a book’s title, author, description, image, and a link to that book on the Google Books site and a button to save a book to my account
+WHEN I click on the Save button on a book
+THEN that book’s information is saved to my account
+WHEN I click on the option to see my saved books
+THEN I am presented with all of the books I have saved to my account, each featuring the book’s title, author, description, image, and a link to that book on the Google Books site and a button to remove a book from my account
+WHEN I click on the Remove button on a book
+THEN that book is deleted from my saved books list
+WHEN I click on the Logout button
+THEN I am logged out of the site and presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button  
 ```
 
   ## Installation
@@ -72,21 +79,25 @@ THEN I am presented with text or icon links to the developer’s GitHub and Link
 
   To run the application:
 
-    npm run start
+    npm run develop
   
   The application will run locally on your browser at localhost:3000
 
  ## Usage
 
+  A  video demonstrating usage of  the Book Search application is provided in the following link: 
 
-Access the [deployed application](https://beanalini.github.io/react-portfolio/) to view samples of my work.  If you have any questions please contact me using the links provided in the Portfolio application.
+  - [Walk-through video](https://watch.screencastify.com/v/f9uDmVvqOAYWbqmj35Vc)
+
+
+
   
   
  ## Deployed Application
 
- To view the React Portfolio click on the link below:
+ To use the book search application, click on the link below:
 
-  - [Link to React Portfolio](https://beanalini.github.io/react-portfolio/)
+  - [Google Book Search Engine](https://murmuring-harbor-84231.herokuapp.com/)
  
 
    
@@ -97,22 +108,27 @@ Access the [deployed application](https://beanalini.github.io/react-portfolio/) 
 
 The following image shows screen shots of my single-page Portfolio Application, which is dynamically updated using React components. 
 
-#### About Me
+#### Login
 
 
- ![About Me page](./assets/images/aboutMe.png)
+ ![login page](./assets/images/login.png)
 
- #### Projects
+ #### Search results
 
- ![Projects page](./assets/images/projects.png)
+ ![Search results](./assets/images/search-results.png)
 
 
-#### Skills
- ![Skills Page](./assets/images/skills.png)
+#### Save button changes to indicate book has been saved
+ ![save button toggles state to show book has been saved](./assets/images/saving-book.png)
 
-#### Contact
+#### Saved Books
 
- ![Contact Page](./assets/images/Contact.png)
+ ![Saved books Page](./assets/images/saved-books.png)
+
+ #### Delete Book
+
+ ![Book deleted](./assets/images/book-deleted.png)
+
 
  
 
@@ -122,11 +138,18 @@ The following image shows screen shots of my single-page Portfolio Application, 
   No code tests have been implemented.
 
   ## Technologies Used
-  - React
+  - React JS
   - Bootstrap
   - HTML
   - CSS
   - JavaScript
+  - Node JS
+  - Express JS
+  - apollo-server-express
+  - GraphQL
+  - MongoDB
+  - Mongoose
+  - Heroku
   
     
  
